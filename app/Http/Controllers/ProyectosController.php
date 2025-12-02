@@ -5,20 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Proyecto;
 use Illuminate\Http\Request;
 
-$proyectos = Proyecto::table('proyectos')->get();
-
 class ProyectosController extends Controller
 {
     public function getIndex()
     {
         return view('proyectos.index')
-            ->with('proyectos', Proyecto::table('proyectos')->get());
+            ->with('proyectos', Proyecto::all());
     }
 
     public function getShow($id)
     {
         return view('proyectos.show')
-            ->with('proyecto', self::$arrayProyectos[$id])
+            ->with('proyecto', Proyecto::findOrFail($id))
             ->with('id', $id);
     }
 
@@ -30,7 +28,7 @@ class ProyectosController extends Controller
     public function getEdit($id)
     {
         return view('proyectos.edit')
-            ->with('proyecto', self::$arrayProyectos[$id])
+            ->with('proyecto', Proyecto::findOrFail($id))
             ->with('id', $id);
     }
 
